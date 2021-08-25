@@ -12,23 +12,23 @@ import {
   Button,
   FormLabel,
   FormControl,
-  FormHelperText,
-
+  FormHelperText
 } from '@chakra-ui/react'
 
 import { Logo } from '../components'
 import firebase from '../config/firebase'
 
-export default function Login() {
+export default function Signup() {
 
   const validationSchema = yup.object().shape({
     email: yup.string().email('Email inválido').required('Preenchimento obrigatório'),
-    password: yup.string().required('Preenchimento obrigatório')
+    password: yup.string().required('Preenchimento obrigatório'),
+    username: yup.string().required('Preenchimento obrigatório')
   })
 
   const { values, errors, touched, handleChange, handleSubmit, handleBlur, isSubmitting } = useFormik({
     onSubmit: async (values, form) => {
-      const user = await firebase.auth().signInWithEmailAndPassword(values.email, values.password)
+      const user = await firebase.auth().createUserWithEmailAndPassword(values.email, values.password)
 
       console.log(user)
     },
@@ -36,6 +36,7 @@ export default function Login() {
     initialValues: {
       email: '',
       password: '',
+      username: ''
     }
 
   })
@@ -58,15 +59,23 @@ export default function Login() {
             {touched.password && <FormHelperText textColor="#e74c3c">{errors.password}</FormHelperText>}
           </FormControl>
 
+          <FormControl id="username" p={4} isRequired>
+            <InputGroup size="lg">
+              <InputLeftAddon children="blue.ridge/" />
+              <Input type="text" value={values.username} onChange={handleChange} onBlur={handleBlur} />
+            </InputGroup>
+            {touched.username && <FormHelperText textColor="#e74c3c">{errors.username}</FormHelperText>}
+          </FormControl>
+
 
           <Box p={4}>
-            <Button width="100%" isLoading={isSubmitting} loadingText="Enviando" colorScheme="blue" onClick={handleSubmit}>Login</Button>
+            <Button width="100%" isLoading={isSubmitting} loadingText="Enviando" colorScheme="blue" onClick={handleSubmit}>Cadastrar</Button>
           </Box>
 
         </Box>
       </Box>
 
-      <Link href="/signup">Já tem uma conta ? Cadastre-se</Link>
+      <Link href="/">Já tem uma conta ? Acesse</Link>
 
     </Container>
   )
