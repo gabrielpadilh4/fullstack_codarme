@@ -28,9 +28,11 @@ export default function Signup() {
 
   const { values, errors, touched, handleChange, handleSubmit, handleBlur, isSubmitting } = useFormik({
     onSubmit: async (values, form) => {
-      const user = await firebase.auth().createUserWithEmailAndPassword(values.email, values.password)
-
-      console.log(user)
+      try {
+        const user = await firebase.auth().createUserWithEmailAndPassword(values.email, values.password)
+      } catch (error) {
+        console.error('ERROR:', error)
+      }
     },
     validationSchema,
     initialValues: {
