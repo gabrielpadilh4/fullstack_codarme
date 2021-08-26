@@ -1,4 +1,4 @@
-import firebaseClient from './client'
+import firebaseClient, { persistenceMode } from './client'
 import firebaseServer from './server'
 
-export {firebaseClient, firebaseServer}
+export { firebaseClient, firebaseServer, persistenceMode }
