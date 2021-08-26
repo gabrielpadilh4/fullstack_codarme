@@ -17,7 +17,7 @@ import {
 } from '@chakra-ui/react'
 
 import { Logo } from '../components'
-import firebase from '../config/firebase'
+import firebase, { persistenceMode } from '../config/firebase'
 
 export default function Login() {
 
@@ -28,6 +28,9 @@ export default function Login() {
 
   const { values, errors, touched, handleChange, handleSubmit, handleBlur, isSubmitting } = useFormik({
     onSubmit: async (values, form) => {
+
+      firebase.auth().setPersistence(persistenceMode)
+
       const user = await firebase.auth().signInWithEmailAndPassword(values.email, values.password)
 
       console.log(user)
