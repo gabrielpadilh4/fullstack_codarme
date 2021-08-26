@@ -15,7 +15,7 @@ import {
 } from '@chakra-ui/react'
 
 import { Logo } from '../Logo'
-import firebase, { persistenceMode } from '../../config/firebase'
+import { firebaseClient, persistenceMode } from '../../config/firebase'
 
 export const Login = () => {
 
@@ -29,9 +29,9 @@ export const Login = () => {
 
             try {
 
-                firebase.auth().setPersistence(persistenceMode)
+                firebaseClient.auth().setPersistence(persistenceMode)
 
-                const user = await firebase.auth().signInWithEmailAndPassword(values.email, values.password)
+                const user = await firebaseClient.auth().signInWithEmailAndPassword(values.email, values.password)
                 
             } catch (error) {
                 console.error('ERROR:', error)
