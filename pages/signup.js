@@ -63,7 +63,7 @@ export default function Signup() {
 
           <FormControl id="username" p={4} isRequired>
             <InputGroup size="lg">
-              <InputLeftAddon children="blue.ridge/" />
+              <InputLeftAddon>blue.ridge/</InputLeftAddon>
               <Input type="text" value={values.username} onChange={handleChange} onBlur={handleBlur} />
             </InputGroup>
             {touched.username && <FormHelperText textColor="#e74c3c">{errors.username}</FormHelperText>}
